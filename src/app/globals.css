@@ -108,7 +108,9 @@
     font-feature-settings: "ss01", "cv01", "cv11";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    /* `clip` prevents horizontal overflow WITHOUT creating a scroll
+       container, so it doesn't break `scroll-behavior: smooth` on <html>. */
+    overflow-x: clip;
   }
 
   ::selection {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon, MediumIcon } from "@/components/icons/brand";
+import { SmoothLink } from "@/components/smooth-link";
 import { siteConfig, navItems } from "@/lib/content/site";
 
 const socialLinks = [
@@ -40,12 +41,12 @@ export function Footer() {
               <ul className="space-y-2.5">
                 {navItems.map((item) => (
                   <li key={item.href}>
-                    <Link
+                    <SmoothLink
                       href={item.href}
                       className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
                       {item.label}
-                    </Link>
+                    </SmoothLink>
                   </li>
                 ))}
               </ul>

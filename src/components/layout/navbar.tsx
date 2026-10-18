@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { navItems, siteConfig } from "@/lib/content/site";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { SmoothLink } from "@/components/smooth-link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -55,7 +56,7 @@ export function Navbar() {
 
           <div className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => (
-              <Link
+              <SmoothLink
                 key={item.href}
                 href={item.href}
                 className={cn(
@@ -64,7 +65,7 @@ export function Navbar() {
                 )}
               >
                 {item.label}
-              </Link>
+              </SmoothLink>
             ))}
           </div>
 
@@ -75,9 +76,9 @@ export function Navbar() {
               size="sm"
               className="hidden sm:inline-flex"
             >
-              <Link href="/#contact">
+              <SmoothLink href="/#contact">
                 Hire me <ArrowUpRight />
-              </Link>
+              </SmoothLink>
             </Button>
             <button
               type="button"
@@ -110,21 +111,21 @@ export function Navbar() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.05 + i * 0.05 }}
                   >
-                    <Link
+                    <SmoothLink
                       href={item.href}
-                      onClick={() => setOpen(false)}
+                      onNavigate={() => setOpen(false)}
                       className="block border-b border-border py-4 font-display text-3xl text-foreground"
                     >
                       {item.label}
-                    </Link>
+                    </SmoothLink>
                   </motion.div>
                 ))}
               </div>
               <div className="mt-auto flex flex-col gap-3">
                 <Button asChild size="lg" className="w-full">
-                  <Link href="/#contact" onClick={() => setOpen(false)}>
+                  <SmoothLink href="/#contact" onNavigate={() => setOpen(false)}>
                     Hire me <ArrowUpRight />
-                  </Link>
+                  </SmoothLink>
                 </Button>
                 <Button asChild size="lg" variant="outline" className="w-full">
                   <a href={siteConfig.resumePath} download>

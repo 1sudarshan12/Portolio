@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { RevealGroup, RevealItem, Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
+import { SmoothLink } from "@/components/smooth-link";
 import { services } from "@/lib/content/services";
 
 export function Services() {
@@ -67,15 +67,15 @@ export function Services() {
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button asChild size="lg">
-              <Link href="#contact">
+              <SmoothLink href="#contact">
                 Hire me <ArrowUpRight />
-              </Link>
+              </SmoothLink>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <Link href="#contact">Discuss your project</Link>
+              <SmoothLink href="#contact">Discuss your project</SmoothLink>
             </Button>
             <Button asChild size="lg" variant="ghost">
-              <Link href="#contact">Request a quote</Link>
+              <SmoothLink href="#contact">Request a quote</SmoothLink>
             </Button>
           </div>
         </div>

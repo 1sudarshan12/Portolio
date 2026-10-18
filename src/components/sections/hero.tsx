@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowDownRight, ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SmoothLink } from "@/components/smooth-link";
 import { Magnetic } from "@/components/motion/magnetic";
 import { siteConfig } from "@/lib/content/site";
 import { stats } from "@/lib/content/about";
@@ -105,15 +105,15 @@ export function Hero() {
             >
               <Magnetic strength={reduce ? 0 : 0.25}>
                 <Button asChild size="lg">
-                  <Link href="#work">
+                  <SmoothLink href="#work">
                     View my projects <ArrowDownRight />
-                  </Link>
+                  </SmoothLink>
                 </Button>
               </Magnetic>
               <Button asChild size="lg" variant="outline">
-                <Link href="#contact">
+                <SmoothLink href="#contact">
                   Hire me <ArrowUpRight />
-                </Link>
+                </SmoothLink>
               </Button>
               <Button asChild size="lg" variant="ghost">
                 <a href={siteConfig.resumePath} download>

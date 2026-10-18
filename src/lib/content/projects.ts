@@ -11,6 +11,8 @@ export type Project = {
   featured?: boolean;
   confidential?: boolean;
   liveUrl?: string;
+  /** Additional live links (e.g. marketing site + app). */
+  links?: { label: string; url: string }[];
   repoUrl?: string;
   stack: string[];
   responsibilities: string[];
@@ -32,6 +34,10 @@ export const projects: Project[] = [
       "I own the public-facing TaxMD.com frontend and contribute core features to TaxMD Personal — a SaaS workspace for tax planning, collaboration and taxpayer workflows.",
     cover: { from: "#e8b65a", to: "#b45309" },
     featured: true,
+    links: [
+      { label: "taxmd.com", url: "https://taxmd.com" },
+      { label: "app.taxmd.com", url: "https://app.taxmd.com" },
+    ],
     stack: ["Next.js", "TypeScript", "React", "AWS Cognito", "GTM", "HubSpot"],
     responsibilities: [
       "End-to-end ownership of TaxMD.com: architecture, product content, B2B/B2C pricing and contact workflows.",
@@ -59,6 +65,7 @@ export const projects: Project[] = [
       "Developed legal-document creation and management workflows, Stripe subscriptions and AI-powered conversational interfaces while modernizing a large legacy codebase.",
     cover: { from: "#60a5fa", to: "#1e3a8a" },
     featured: true,
+    liveUrl: "https://zegal.com/",
     stack: ["React", "TypeScript", "Stripe", "WebSockets", "Docker", "CI/CD"],
     responsibilities: [
       "Built platform modules for legal-document creation and management workflows.",
@@ -85,6 +92,7 @@ export const projects: Project[] = [
     summary:
       "Contributed to a Nepali digital-payment platform supporting payments across multiple services, with a focus on reliable, secure transaction flows.",
     cover: { from: "#34d399", to: "#065f46" },
+    liveUrl: "https://citywallet.com.np/",
     stack: ["React", "Next.js", "REST APIs", "Payment Gateways"],
     responsibilities: [
       "Built and refined payment and service flows for a multi-service wallet platform.",
@@ -101,6 +109,7 @@ export const projects: Project[] = [
     summary:
       "Worked on the RSP public website, delivering frontend interfaces that present party information clearly and accessibly to a national audience.",
     cover: { from: "#f87171", to: "#991b1b" },
+    liveUrl: "https://rspnepal.org/",
     stack: ["React", "Next.js", "TypeScript"],
     responsibilities: [
       "Delivered public-facing frontend interfaces presenting party information to visitors.",
@@ -133,6 +142,7 @@ export const projects: Project[] = [
     summary:
       "Developed web interfaces enabling customers to access insurance-related services online, improving usability and frontend loading performance.",
     cover: { from: "#38bdf8", to: "#0c4a6e" },
+    liveUrl: "https://www.hei.com.np/",
     stack: ["React", "Next.js", "REST APIs"],
     responsibilities: [
       "Built customer-facing web interfaces for accessing insurance services online.",

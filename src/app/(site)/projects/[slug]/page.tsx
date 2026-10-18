@@ -116,6 +116,13 @@ export default async function ProjectPage({
                 </a>
               </Button>
             )}
+            {project.links?.map((link) => (
+              <Button key={link.url} asChild size="sm" variant="outline">
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  <ExternalLink className="size-4" /> {link.label}
+                </a>
+              </Button>
+            ))}
             {project.repoUrl && (
               <Button asChild size="sm" variant="outline">
                 <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
@@ -182,7 +189,7 @@ export default async function ProjectPage({
               <DetailBlock icon={Trophy} title="Results" items={project.results} />
             )}
 
-            {!project.liveUrl && (
+            {!project.liveUrl && !project.links && (
               <p className="rounded-xl border border-dashed border-border bg-card/50 px-5 py-4 text-sm text-muted-foreground">
                 Live link and screenshots available on request — some work is
                 under NDA or internal to the company.
