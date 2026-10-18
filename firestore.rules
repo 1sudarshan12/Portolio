@@ -1,0 +1,35 @@
+rules_version = '2';
+
+// ------------------------------------------------------------------
+// Portfolio Firestore security rules
+//
+// Model:
+// - Public blog content is served through the Firebase Admin SDK on the
+//   server (RSC/SSR), which BYPASSES these rules. So the client never
+//   needs read access for the public site to work.
+// - These rules therefore LOCK DOWN all direct client access. Writes and
+//   privileged reads happen only through server-side Admin SDK code, which
+//   verifies an admin session cookie first.
+// - Contact inquiries are written server-side via the Admin SDK too, so we
+//   deny all direct client writes here (no unauthenticated DB writes).
+// ------------------------------------------------------------------
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Blog posts: no direct client access. The server (Admin SDK) handles
+    // all reads/writes and enforces admin authorization.
+    match /posts/{postId} {
+      allow read, write: if false;
+    }
+
+    // Contact inquiries: never writable/readable from the client.
+    match /inquiries/{inquiryId} {
+      allow read, write: if false;
+    }
+
+    // Default deny for anything else.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

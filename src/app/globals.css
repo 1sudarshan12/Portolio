@@ -1,26 +1,386 @@
 @import "tailwindcss";
 
+/* Enable class-based dark mode driven by next-themes (attribute="class") */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Design tokens                                                      */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Light theme (warm paper) */
+  --background: #faf9f6;
+  --background-subtle: #f3f1ea;
+  --foreground: #1a1a17;
+  --muted: #efece3;
+  --muted-foreground: #6a685f;
+  --card: #ffffff;
+  --card-foreground: #1a1a17;
+  --border: rgba(26, 26, 23, 0.1);
+  --border-strong: rgba(26, 26, 23, 0.18);
+  --input: rgba(26, 26, 23, 0.14);
+  --ring: #a9741c;
+
+  /* Signal amber accent */
+  --accent: #a9741c;
+  --accent-foreground: #ffffff;
+  --accent-soft: rgba(169, 116, 28, 0.1);
+  --accent-glow: rgba(200, 138, 30, 0.22);
+
+  --radius: 0.9rem;
 }
 
+.dark {
+  /* Dark theme (ink) */
+  --background: #0a0a0c;
+  --background-subtle: #0f0f12;
+  --foreground: #ededf0;
+  --muted: #17171b;
+  --muted-foreground: #9a9aa2;
+  --card: #121216;
+  --card-foreground: #ededf0;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --input: rgba(255, 255, 255, 0.14);
+  --ring: #e8b65a;
+
+  --accent: #e8b65a;
+  --accent-foreground: #15120a;
+  --accent-soft: rgba(232, 182, 90, 0.12);
+  --accent-glow: rgba(232, 182, 90, 0.2);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Tailwind theme mapping                                             */
+/* ------------------------------------------------------------------ */
 @theme inline {
   --color-background: var(--background);
+  --color-background-subtle: var(--background-subtle);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  --radius-sm: calc(var(--radius) - 0.4rem);
+  --radius-md: calc(var(--radius) - 0.2rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.4rem);
+  --radius-2xl: calc(var(--radius) + 1rem);
+
+  /* Fluid type scale */
+  --text-display: clamp(2.75rem, 1.6rem + 5.6vw, 6.5rem);
+  --text-h1: clamp(2.25rem, 1.5rem + 3.6vw, 4.5rem);
+  --text-h2: clamp(1.9rem, 1.4rem + 2.4vw, 3.25rem);
+  --text-h3: clamp(1.35rem, 1.1rem + 1.1vw, 1.9rem);
+  --text-lead: clamp(1.05rem, 0.98rem + 0.45vw, 1.35rem);
+
+  --breakpoint-xs: 25rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------ */
+/*  Base layer                                                         */
+/* ------------------------------------------------------------------ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+
+  /* Thin, tasteful scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 999px;
+    border: 2px solid var(--background);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------ */
+/*  Utilities & effects                                                */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .container-px {
+    padding-inline: clamp(1.15rem, 0.6rem + 2.6vw, 7rem);
+  }
+
+  .section-py {
+    padding-block: clamp(4.5rem, 3rem + 7vw, 9rem);
+  }
+
+  .label-mono {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      180deg,
+      var(--foreground) 0%,
+      color-mix(in oklab, var(--foreground) 55%, var(--muted-foreground)) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .accent-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--accent) 0%,
+      color-mix(in oklab, var(--accent) 70%, #ff8a3d) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Subtle film grain overlay */
+  .grain::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .hairline {
+    border-top: 1px solid var(--border);
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 85%);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 0 1px var(--border), 0 20px 60px -20px var(--accent-glow);
+  }
+
+  .card-surface {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee 38s linear infinite;
+  }
+
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+  .animate-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .animate-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--foreground) 6%, transparent),
+      transparent
+    );
+    animation: shimmer 1.6s infinite;
+  }
 }
+
+/* ------------------------------------------------------------------ */
+/*  Reduced motion                                                     */
+/* ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Markdown / prose (blog)                                            */
+/* ------------------------------------------------------------------ */
+.prose-blog {
+  color: var(--foreground);
+  font-size: 1.075rem;
+  line-height: 1.8;
+}
+.prose-blog > * + * {
+  margin-top: 1.4em;
+}
+.prose-blog h2 {
+  font-size: var(--text-h3);
+  margin-top: 2.2em;
+  margin-bottom: 0.2em;
+  scroll-margin-top: 6rem;
+}
+.prose-blog h3 {
+  font-size: 1.4rem;
+  margin-top: 1.8em;
+  scroll-margin-top: 6rem;
+}
+.prose-blog a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.prose-blog strong {
+  color: var(--foreground);
+  font-weight: 650;
+}
+.prose-blog ul,
+.prose-blog ol {
+  padding-left: 1.4em;
+}
+.prose-blog ul { list-style: disc; }
+.prose-blog ol { list-style: decimal; }
+.prose-blog li::marker {
+  color: var(--accent);
+}
+.prose-blog blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.2em;
+  font-style: italic;
+  color: var(--muted-foreground);
+}
+.prose-blog img {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+.prose-blog :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--muted);
+  padding: 0.15em 0.4em;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border);
+}
+.prose-blog pre {
+  background: #0d1117;
+  color: #e6edf3;
+  padding: 1.15rem 1.25rem;
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  border: 1px solid var(--border-strong);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+.prose-blog pre code {
+  font-family: var(--font-mono);
+  background: transparent;
+  padding: 0;
+  border: 0;
+}
+
+/* highlight.js token palette (github-dark flavoured) */
+.hljs-comment,
+.hljs-quote { color: #8b949e; font-style: italic; }
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type { color: #ff7b72; }
+.hljs-string,
+.hljs-doctag,
+.hljs-regexp { color: #a5d6ff; }
+.hljs-title,
+.hljs-section,
+.hljs-function .hljs-title,
+.hljs-title.function_ { color: #d2a8ff; }
+.hljs-built_in,
+.hljs-literal,
+.hljs-number,
+.hljs-variable.language_ { color: #79c0ff; }
+.hljs-attr,
+.hljs-attribute,
+.hljs-variable,
+.hljs-template-variable { color: #ffa657; }
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-selector-class { color: #7ee787; }
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }
