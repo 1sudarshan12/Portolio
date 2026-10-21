@@ -38,6 +38,16 @@ export const projects: Project[] = [
       { label: "taxmd.com", url: "https://taxmd.com" },
       { label: "app.taxmd.com", url: "https://app.taxmd.com" },
     ],
+    screenshots: [
+      {
+        src: "/taxmd-homepage-hero.jpg",
+        alt: "TaxMD.com marketing homepage hero section",
+      },
+      {
+        src: "/taxmd-strategy.jpg",
+        alt: "TaxMD.com tax strategy and product content page",
+      },
+    ],
     stack: ["Next.js", "TypeScript", "React", "AWS Cognito", "GTM", "HubSpot"],
     responsibilities: [
       "End-to-end ownership of TaxMD.com: architecture, product content, B2B/B2C pricing and contact workflows.",

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -14,6 +13,7 @@ import {
 import { GithubIcon } from "@/components/icons/brand";
 import { projects, getProject } from "@/lib/content/projects";
 import { ProjectCover } from "@/components/projects/project-cover";
+import { ProjectGallery } from "@/components/projects/project-gallery";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
@@ -199,25 +199,7 @@ export default async function ProjectPage({
                   </span>
                   Gallery
                 </h2>
-                <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                  {project.screenshots.slice(1).map((shot) => (
-                    <a
-                      key={shot.src}
-                      href={shot.src}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative block aspect-[16/10] overflow-hidden rounded-xl border border-border"
-                    >
-                      <Image
-                        src={shot.src}
-                        alt={shot.alt}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                      />
-                    </a>
-                  ))}
-                </div>
+                <ProjectGallery shots={project.screenshots.slice(1)} />
               </div>
             )}
 
