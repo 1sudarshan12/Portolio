@@ -1,10 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
   ArrowLeft,
   ArrowUpRight,
   ExternalLink,
+  Image as ImageIcon,
   Target,
   TriangleAlert,
   Trophy,
@@ -187,6 +189,36 @@ export default async function ProjectPage({
 
             {project.results && (
               <DetailBlock icon={Trophy} title="Results" items={project.results} />
+            )}
+
+            {project.screenshots && project.screenshots.length > 1 && (
+              <div>
+                <h2 className="flex items-center gap-2.5 font-display text-xl text-foreground">
+                  <span className="grid size-8 place-items-center rounded-lg bg-accent-soft text-accent">
+                    <ImageIcon className="size-4" />
+                  </span>
+                  Gallery
+                </h2>
+                <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                  {project.screenshots.slice(1).map((shot) => (
+                    <a
+                      key={shot.src}
+                      href={shot.src}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative block aspect-[16/10] overflow-hidden rounded-xl border border-border"
+                    >
+                      <Image
+                        src={shot.src}
+                        alt={shot.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
             )}
 
             {!project.liveUrl && !project.links && (

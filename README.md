@@ -15,7 +15,7 @@ admin — no separate backend server.
 - **Private admin studio** — Firebase Auth login (admin allowlist), create /
   edit / draft / publish / unpublish / delete posts, live Markdown preview.
 - **Secure contact form** — server action with Zod validation, honeypot +
-  rate‑limiting, Firestore storage, optional email via Resend.
+  rate‑limiting, emailed straight to your inbox via Resend (no Firebase needed).
 - **Design system** — dark‑first with light/dark toggle, amber signal accent,
   fluid typography, tasteful motion with full reduced‑motion support.
 - **SEO** — metadata, Open Graph, JSON‑LD, sitemap, robots, manifest.
@@ -82,16 +82,29 @@ only if you need managed uploads.
 3. **Save draft** (private) or **Publish** (live at `/blog/your-slug`).
 4. Published posts appear on `/blog`, the homepage preview and the sitemap.
 
-## 📬 Contact form (optional email)
+## 📬 Contact form (emails you via Resend)
 
-Submissions are validated, rate‑limited and saved to the `inquiries` collection.
-To also receive emails, add a [Resend](https://resend.com) key:
+Submissions are validated, rate‑limited and **emailed straight to your inbox**
+via [Resend](https://resend.com) — no Firebase needed. Each email sets
+`reply_to` to the visitor, so you can reply directly. If no key is set, the form
+still shows success locally but logs a warning (no email is sent).
+
+Quickstart (about 2 minutes):
+
+1. Sign up at [resend.com](https://resend.com) **using your Gmail**
+   (`amstersudhan633@gmail.com`). The default sender only delivers to your
+   signup address.
+2. Create an **API Key**.
+3. Add it locally and in Vercel:
 
 ```
-RESEND_API_KEY=...
-RESEND_FROM_EMAIL=you@yourdomain.com   # must be a verified Resend sender
-CONTACT_NOTIFY_EMAIL=where@to-send.com # defaults to your profile email
+RESEND_API_KEY=re_...                  # required
+RESEND_FROM_EMAIL=                      # optional — only once you verify a domain
+CONTACT_NOTIFY_EMAIL=                   # optional — defaults to your profile email
 ```
+
+To send from a branded address (e.g. `hello@sudarshanadhikari.com`), verify a
+domain in Resend and set `RESEND_FROM_EMAIL`.
 
 ## ▲ Deploy to Vercel
 
