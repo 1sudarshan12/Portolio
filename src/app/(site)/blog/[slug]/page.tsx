@@ -12,6 +12,7 @@ import { Markdown } from "@/components/blog/markdown";
 import { ShareButtons } from "@/components/blog/share";
 import { PostCard } from "@/components/blog/post-card";
 import { formatDate, absoluteUrl } from "@/lib/utils";
+import { siteConfig } from "@/lib/content/site";
 
 export const revalidate = 60;
 
@@ -72,7 +73,10 @@ export default async function ArticlePage({
     description: post.excerpt,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
-    author: { "@type": "Person", name: "Sudarshan Adhikari" },
+    author: {
+      "@type": "Person",
+      name: post.authorName ?? siteConfig.name,
+    },
     keywords: post.tags.join(", "),
     url,
     ...(post.coverImage ? { image: post.coverImage } : {}),
@@ -88,10 +92,10 @@ export default async function ArticlePage({
       <div className="container-px">
         <div className="mx-auto max-w-3xl">
           <Link
-            href="/blog"
+            href="/#blogs"
             className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
-            <ArrowLeft className="size-4" /> All articles
+            <ArrowLeft className="size-4" /> Back to blogs
           </Link>
 
           <div className="mt-8 flex flex-wrap gap-2">
@@ -131,7 +135,7 @@ export default async function ArticlePage({
           <div className="relative mx-auto aspect-[16/8] w-full max-w-4xl overflow-hidden rounded-3xl border border-border">
             <Image
               src={post.coverImage}
-              alt={post.title}
+              alt={post.coverImageAlt ?? post.title}
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 56rem"
@@ -152,7 +156,7 @@ export default async function ArticlePage({
               </span>
               <div>
                 <p className="text-sm font-medium text-foreground">
-                  Sudarshan Adhikari
+                  {post.authorName ?? siteConfig.name}
                 </p>
                 <p className="text-xs text-muted-foreground">
                   Full-Stack Software Engineer

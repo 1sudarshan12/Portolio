@@ -47,6 +47,34 @@ export const projects: Project[] = [
         src: "/taxmd-strategy.jpg",
         alt: "TaxMD.com tax strategy and product content page",
       },
+      {
+        src: "/taxmd-sass-1.jpg",
+        alt: "TaxMD Personal SaaS application — workspace view",
+      },
+      {
+        src: "/taxmd-sass-2.jpg",
+        alt: "TaxMD Personal SaaS application — tax planning interface",
+      },
+      {
+        src: "/taxmd-sass-3.jpg",
+        alt: "TaxMD Personal SaaS application — dashboard and insights",
+      },
+      {
+        src: "/taxmd-sass-4.jpg",
+        alt: "TaxMD Personal SaaS application — taxpayer workflow",
+      },
+      {
+        src: "/taxmd-sass-5.jpg",
+        alt: "TaxMD Personal SaaS application — collaboration features",
+      },
+      {
+        src: "/taxmd-sass-6.jpg",
+        alt: "TaxMD Personal SaaS application — form and data views",
+      },
+      {
+        src: "/taxmd-sass-7.jpg",
+        alt: "TaxMD Personal SaaS application — additional product screen",
+      },
     ],
     stack: ["Next.js", "TypeScript", "React", "AWS Cognito", "GTM", "HubSpot"],
     responsibilities: [
@@ -76,6 +104,14 @@ export const projects: Project[] = [
     cover: { from: "#60a5fa", to: "#1e3a8a" },
     featured: true,
     liveUrl: "https://zegal.com/",
+    screenshots: [
+      { src: "/zegal-1.jpg", alt: "Zegal legal document SaaS — platform overview" },
+      { src: "/zegal-2.jpg", alt: "Zegal legal document SaaS — document workflow" },
+      { src: "/zegal-3.jpg", alt: "Zegal legal document SaaS — editor and management UI" },
+      { src: "/zegal-4.jpg", alt: "Zegal legal document SaaS — subscription and billing flows" },
+      { src: "/zegal-5.jpg", alt: "Zegal legal document SaaS — conversational AI interface" },
+      { src: "/zegal-6.jpg", alt: "Zegal legal document SaaS — additional product screen" },
+    ],
     stack: ["React", "TypeScript", "Stripe", "WebSockets", "Docker", "CI/CD"],
     responsibilities: [
       "Built platform modules for legal-document creation and management workflows.",
@@ -103,6 +139,16 @@ export const projects: Project[] = [
       "Contributed to a Nepali digital-payment platform supporting payments across multiple services, with a focus on reliable, secure transaction flows.",
     cover: { from: "#34d399", to: "#065f46" },
     liveUrl: "https://citywallet.com.np/",
+    screenshots: [
+      {
+        src: "/citypay-1.jpg",
+        alt: "CityPay digital wallet — platform home and services",
+      },
+      {
+        src: "/citypay-2.jpg",
+        alt: "CityPay digital wallet — payment and transaction flow",
+      },
+    ],
     stack: ["React", "Next.js", "REST APIs", "Payment Gateways"],
     responsibilities: [
       "Built and refined payment and service flows for a multi-service wallet platform.",
@@ -120,6 +166,20 @@ export const projects: Project[] = [
       "Worked on the RSP public website, delivering frontend interfaces that present party information clearly and accessibly to a national audience.",
     cover: { from: "#f87171", to: "#991b1b" },
     liveUrl: "https://rspnepal.org/",
+    screenshots: [
+      {
+        src: "/rsp-1.jpg",
+        alt: "RSP public website — homepage",
+      },
+      {
+        src: "/rsp-2.jpg",
+        alt: "RSP public website — content and navigation",
+      },
+      {
+        src: "/rsp-3.jpg",
+        alt: "RSP public website — additional page view",
+      },
+    ],
     stack: ["React", "Next.js", "TypeScript"],
     responsibilities: [
       "Delivered public-facing frontend interfaces presenting party information to visitors.",
@@ -153,6 +213,28 @@ export const projects: Project[] = [
       "Developed web interfaces enabling customers to access insurance-related services online, improving usability and frontend loading performance.",
     cover: { from: "#38bdf8", to: "#0c4a6e" },
     liveUrl: "https://www.hei.com.np/",
+    screenshots: [
+      {
+        src: "/hei-1.jpg",
+        alt: "Himalayan Everest Insurance web app — customer portal home",
+      },
+      {
+        src: "/hei-2.jpg",
+        alt: "Himalayan Everest Insurance web app — service overview",
+      },
+      {
+        src: "/hei-3.jpg",
+        alt: "Himalayan Everest Insurance web app — policy and account UI",
+      },
+      {
+        src: "/hei-4.jpg",
+        alt: "Himalayan Everest Insurance web app — online self-service flow",
+      },
+      {
+        src: "/hei-5.jpg",
+        alt: "Himalayan Everest Insurance web app — additional customer screen",
+      },
+    ],
     stack: ["React", "Next.js", "REST APIs"],
     responsibilities: [
       "Built customer-facing web interfaces for accessing insurance services online.",

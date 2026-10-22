@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 type SmoothLinkProps = React.ComponentProps<typeof Link> & {
   /** Called after a click (e.g. to close a mobile menu). */
@@ -22,6 +22,7 @@ export function SmoothLink({
   ...props
 }: SmoothLinkProps) {
   const pathname = usePathname();
+  const router = useRouter();
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
     onClick?.(e);
@@ -43,7 +44,17 @@ export function SmoothLink({
           ).matches;
           el.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
           window.history.replaceState(null, "", `#${id}`);
+          onNavigate?.();
+          return;
         }
+      }
+
+      // Homepage section from another route (e.g. blog article → /#blogs)
+      if (!samePage && id && (targetPath === "/" || targetPath === "")) {
+        e.preventDefault();
+        router.push(`/#${id}`);
+        onNavigate?.();
+        return;
       }
     }
 

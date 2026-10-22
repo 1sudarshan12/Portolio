@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { HashScrollHandler } from "@/components/hash-scroll-handler";
 
 export default function SiteLayout({
   children,
@@ -12,6 +13,7 @@ export default function SiteLayout({
       >
         Skip to content
       </a>
+      <HashScrollHandler />
       <Navbar />
       <main id="main" className="flex-1">
         {children}

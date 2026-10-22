@@ -7,6 +7,8 @@ export type Post = {
   excerpt: string;
   content: string;
   coverImage?: string | null;
+  coverImageAlt?: string | null;
+  authorName?: string | null;
   tags: string[];
   status: PostStatus;
   readingMinutes: number;

@@ -16,8 +16,12 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Blog posts: no direct client access. The server (Admin SDK) handles
-    // all reads/writes and enforces admin authorization.
+    // Blog articles (`blogs` collection): no direct client access.
+    match /blogs/{blogId} {
+      allow read, write: if false;
+    }
+
+    // Legacy collection name (if any old docs remain).
     match /posts/{postId} {
       allow read, write: if false;
     }

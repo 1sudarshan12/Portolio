@@ -6,9 +6,13 @@ import { FieldValue } from "firebase-admin/firestore";
 import { adminDb } from "@/lib/firebase/admin";
 import { getAdminSession } from "@/lib/firebase/session";
 import { postInputSchema } from "@/lib/validation";
-import { readingTime, slugify } from "@/lib/utils";
-
-const COLLECTION = "posts";
+import { slugify } from "@/lib/utils";
+import { siteConfig } from "@/lib/content/site";
+import {
+  BLOGS_COLLECTION,
+  isBlogPublished,
+  toFirestoreBlogFields,
+} from "@/lib/blog/firestore-map";
 
 export type PostFormState = {
   status: "idle" | "error" | "success";
@@ -65,51 +69,56 @@ export async function savePost(
   }
 
   const data = parsed.data;
+  const docId = id || data.slug;
+  const published = data.status === "published";
 
-  // Enforce unique slug (excluding the current doc)
-  const slugClash = await db
-    .collection(COLLECTION)
-    .where("slug", "==", data.slug)
-    .get();
-  const clash = slugClash.docs.find((d) => d.id !== id);
-  if (clash) {
+  if (id && data.slug !== id) {
     return {
       status: "error",
-      message: "That slug is already in use.",
-      errors: { slug: "Slug must be unique." },
+      message: "Document URL can't be changed after creation.",
+      errors: { slug: "Slug is fixed for existing articles." },
     };
   }
 
-  const base = {
+  const existingRef = db.collection(BLOGS_COLLECTION).doc(docId);
+  const existingSnap = await existingRef.get();
+  if (!id && existingSnap.exists) {
+    return {
+      status: "error",
+      message: "That slug is already in use.",
+      errors: { slug: "Choose a different slug." },
+    };
+  }
+
+  const wasPublished = existingSnap.exists
+    ? isBlogPublished(existingSnap.data()!)
+    : false;
+
+  const fields = toFirestoreBlogFields({
     title: data.title,
-    slug: data.slug,
-    excerpt: data.excerpt,
+    description: data.excerpt,
     content: data.content,
     coverImage: data.coverImage || null,
     tags: data.tags,
-    status: data.status,
-    readingMinutes: readingTime(data.content),
-    updatedAt: FieldValue.serverTimestamp(),
-    authorEmail: session.email,
-  };
+    published,
+    authorName: siteConfig.name,
+  });
 
   try {
     if (id) {
-      const ref = db.collection(COLLECTION).doc(id);
-      const existing = await ref.get();
-      const wasPublished = existing.data()?.status === "published";
-      await ref.update({
-        ...base,
-        ...(data.status === "published" && !wasPublished
+      await existingRef.update({
+        ...fields,
+        updatedAt: FieldValue.serverTimestamp(),
+        ...(published && !wasPublished
           ? { publishedAt: FieldValue.serverTimestamp() }
           : {}),
       });
     } else {
-      await db.collection(COLLECTION).add({
-        ...base,
+      await existingRef.set({
+        ...fields,
         createdAt: FieldValue.serverTimestamp(),
-        publishedAt:
-          data.status === "published" ? FieldValue.serverTimestamp() : null,
+        updatedAt: FieldValue.serverTimestamp(),
+        publishedAt: published ? FieldValue.serverTimestamp() : null,
       });
     }
   } catch (err) {
@@ -117,7 +126,7 @@ export async function savePost(
     return { status: "error", message: "Failed to save. Please try again." };
   }
 
-  revalidateBlog(data.slug);
+  revalidateBlog(docId);
   redirect("/admin?saved=1");
 }
 
@@ -130,10 +139,8 @@ export async function deletePost(formData: FormData): Promise<void> {
   const id = formData.get("id") as string;
   if (!id) return;
 
-  const doc = await db.collection(COLLECTION).doc(id).get();
-  const slug = doc.data()?.slug as string | undefined;
-  await db.collection(COLLECTION).doc(id).delete();
-  revalidateBlog(slug);
+  await db.collection(BLOGS_COLLECTION).doc(id).delete();
+  revalidateBlog(id);
   revalidatePath("/admin");
 }
 
@@ -146,20 +153,22 @@ export async function togglePublish(formData: FormData): Promise<void> {
   const id = formData.get("id") as string;
   if (!id) return;
 
-  const ref = db.collection(COLLECTION).doc(id);
+  const ref = db.collection(BLOGS_COLLECTION).doc(id);
   const doc = await ref.get();
   const current = doc.data();
   if (!current) return;
 
-  const nextStatus = current.status === "published" ? "draft" : "published";
+  const currentlyPublished = isBlogPublished(current);
+  const nextPublished = !currentlyPublished;
+
   await ref.update({
-    status: nextStatus,
+    published: nextPublished,
     updatedAt: FieldValue.serverTimestamp(),
-    ...(nextStatus === "published" && !current.publishedAt
+    ...(nextPublished && !current.publishedAt
       ? { publishedAt: FieldValue.serverTimestamp() }
       : {}),
   });
 
-  revalidateBlog(current.slug as string);
+  revalidateBlog(id);
   revalidatePath("/admin");
 }

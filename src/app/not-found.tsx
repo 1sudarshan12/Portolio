@@ -23,7 +23,7 @@ export default function NotFound() {
             </Link>
           </Button>
           <Button asChild variant="outline">
-            <Link href="/blog">
+            <Link href="/#blogs">
               <ArrowLeft className="size-4" /> Read the blog
             </Link>
           </Button>

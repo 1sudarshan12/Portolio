@@ -182,8 +182,9 @@ export function PostEditor({ post }: { post?: Post }) {
                     id="slug"
                     name="slug"
                     value={slug}
+                    readOnly={Boolean(post)}
                     onChange={(e) => setSlugOverride(e.target.value)}
-                    className="w-full bg-transparent py-3 pl-1 font-mono text-xs text-foreground outline-none"
+                    className="w-full bg-transparent py-3 pl-1 font-mono text-xs text-foreground outline-none read-only:cursor-not-allowed read-only:opacity-70"
                   />
                 </div>
                 {state.errors?.slug && (
@@ -193,7 +194,7 @@ export function PostEditor({ post }: { post?: Post }) {
 
               <div>
                 <label htmlFor="excerpt" className="mb-2 block text-sm text-muted-foreground">
-                  Excerpt
+                  Description
                 </label>
                 <textarea
                   id="excerpt"
