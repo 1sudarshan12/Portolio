@@ -141,7 +141,7 @@ export function Hero() {
               </Button>
               <Button asChild size="lg" variant="ghost" className="w-full sm:w-auto">
                 <a href={siteConfig.resumePath} download>
-                  <Download /> Résumé
+                  <Download /> Resume
                 </a>
               </Button>
             </motion.div>
