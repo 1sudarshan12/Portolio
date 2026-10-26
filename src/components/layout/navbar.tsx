@@ -31,7 +31,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)]">
       <div className="container-px pt-3 sm:pt-4">
         <nav
           className={cn(
@@ -102,7 +102,7 @@ export function Navbar() {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 top-0 z-40 bg-background/95 backdrop-blur-xl md:hidden"
           >
-            <div className="flex h-full flex-col px-6 pb-10 pt-24">
+            <div className="flex h-full flex-col px-6 pb-[calc(2.5rem+env(safe-area-inset-bottom))] pt-[calc(6rem+env(safe-area-inset-top))]">
               <div className="flex flex-col gap-1">
                 {navItems.map((item, i) => (
                   <motion.div
@@ -129,7 +129,7 @@ export function Navbar() {
                 </Button>
                 <Button asChild size="lg" variant="outline" className="w-full">
                   <a href={siteConfig.resumePath} download>
-                    Download résumé
+                    Download Resume
                   </a>
                 </Button>
               </div>

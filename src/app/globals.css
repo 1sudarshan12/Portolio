@@ -97,10 +97,12 @@
   }
 
   html {
+    background: var(--background);
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     overflow-x: hidden;
     max-width: 100%;
+    min-height: 100%;
   }
 
   body {
@@ -112,6 +114,7 @@
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
     max-width: 100%;
+    min-height: 100dvh;
   }
 
   @media (max-width: 639px) {

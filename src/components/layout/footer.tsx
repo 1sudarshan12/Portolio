@@ -15,7 +15,7 @@ export function Footer() {
   return (
     <footer className="relative mt-auto border-t border-border">
       <div className="container-px">
-        <div className="mx-auto max-w-7xl py-16 sm:py-20">
+        <div className="mx-auto max-w-7xl pb-[calc(4rem+env(safe-area-inset-bottom))] pt-16 sm:pb-[calc(5rem+env(safe-area-inset-bottom))] sm:pt-20">
           <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
             <div className="max-w-sm">
               <Link href="/" className="flex items-center gap-2.5">
