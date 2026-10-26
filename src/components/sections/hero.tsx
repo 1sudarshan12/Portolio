@@ -33,7 +33,7 @@ export function Hero() {
       {/* Background layers */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid opacity-60" />
-        <div className="absolute left-1/2 top-0 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-glow),transparent_62%)] blur-2xl" />
+        <div className="absolute left-1/2 top-0 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-glow),transparent_62%)] blur-2xl sm:h-[42rem] sm:w-[42rem]" />
       </div>
 
       <div className="container-px">
@@ -46,7 +46,7 @@ export function Hero() {
             animate="visible"
             className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2"
           >
-            <span className="inline-flex items-center gap-2.5 rounded-full border border-border bg-card/60 px-4 py-1.5 text-sm text-muted-foreground backdrop-blur">
+            <span className="inline-flex max-w-full items-center gap-2.5 rounded-full border border-border bg-card/60 px-4 py-1.5 text-sm text-pretty text-muted-foreground backdrop-blur">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60" />
                 <span className="relative inline-flex size-2 rounded-full bg-accent" />
@@ -57,27 +57,51 @@ export function Hero() {
           </motion.div>
 
           {/* Headline */}
-          <h1 className="font-display text-foreground" style={{ fontSize: "var(--text-display)" }}>
+          <h1
+            className="max-w-full break-words font-display text-foreground"
+            style={{ fontSize: "var(--text-display)" }}
+          >
             <span className="sr-only">
               {siteConfig.name} — {siteConfig.role}
             </span>
-            {["Full-Stack", "Software Engineer"].map((text, i) => (
-              <span key={text} className="block overflow-hidden pb-[0.12em]">
-                <motion.span
-                  className="block leading-[0.95]"
-                  variants={line}
-                  custom={i}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {i === 1 ? (
-                    <span className="accent-gradient">{text}</span>
-                  ) : (
-                    text
-                  )}
-                </motion.span>
-              </span>
-            ))}
+            <span className="contents sm:hidden">
+              {(["Full-Stack", "Software", "Engineer"] as const).map((text, i) => (
+                <span key={text} className="block overflow-hidden pb-[0.12em]">
+                  <motion.span
+                    className="block leading-[0.95]"
+                    variants={line}
+                    custom={i}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    {i >= 1 ? (
+                      <span className="accent-gradient">{text}</span>
+                    ) : (
+                      text
+                    )}
+                  </motion.span>
+                </span>
+              ))}
+            </span>
+            <span className="hidden sm:contents">
+              {(["Full-Stack", "Software Engineer"] as const).map((text, i) => (
+                <span key={text} className="block overflow-hidden pb-[0.12em]">
+                  <motion.span
+                    className="block leading-[0.95]"
+                    variants={line}
+                    custom={i}
+                    initial="hidden"
+                    animate="visible"
+                  >
+                    {i === 1 ? (
+                      <span className="accent-gradient">{text}</span>
+                    ) : (
+                      text
+                    )}
+                  </motion.span>
+                </span>
+              ))}
+            </span>
           </h1>
 
           {/* Intro + CTAs */}
@@ -101,21 +125,21 @@ export function Hero() {
               custom={0.65}
               initial="hidden"
               animate="visible"
-              className="flex flex-wrap items-center gap-3"
+              className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center"
             >
               <Magnetic strength={reduce ? 0 : 0.25}>
-                <Button asChild size="lg">
+                <Button asChild size="lg" className="w-full sm:w-auto">
                   <SmoothLink href="#work">
                     View my projects <ArrowDownRight />
                   </SmoothLink>
                 </Button>
               </Magnetic>
-              <Button asChild size="lg" variant="outline">
+              <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
                 <SmoothLink href="#contact">
                   Hire me <ArrowUpRight />
                 </SmoothLink>
               </Button>
-              <Button asChild size="lg" variant="ghost">
+              <Button asChild size="lg" variant="ghost" className="w-full sm:w-auto">
                 <a href={siteConfig.resumePath} download>
                   <Download /> Résumé
                 </a>

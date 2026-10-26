@@ -99,6 +99,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   body {
@@ -108,9 +110,14 @@
     font-feature-settings: "ss01", "cv01", "cv11";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    /* `clip` prevents horizontal overflow WITHOUT creating a scroll
-       container, so it doesn't break `scroll-behavior: smooth` on <html>. */
-    overflow-x: clip;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  @media (max-width: 639px) {
+    :root {
+      --text-display: clamp(2rem, 1.2rem + 4.5vw, 2.75rem);
+    }
   }
 
   ::selection {

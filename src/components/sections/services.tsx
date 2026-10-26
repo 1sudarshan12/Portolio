@@ -7,10 +7,10 @@ import { services } from "@/lib/content/services";
 
 export function Services() {
   return (
-    <Section id="services" className="relative">
+    <Section id="services" className="relative overflow-hidden">
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-glow),transparent_65%)] opacity-50 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-24 -z-10 h-[20rem] w-[20rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-glow),transparent_65%)] opacity-50 blur-3xl sm:h-[30rem] sm:w-[30rem]"
       />
       <SectionHeader
         index="05"

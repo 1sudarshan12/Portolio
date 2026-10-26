@@ -15,7 +15,7 @@ export default function SiteLayout({
       </a>
       <HashScrollHandler />
       <Navbar />
-      <main id="main" className="flex-1">
+      <main id="main" className="flex-1 overflow-x-hidden max-w-full">
         {children}
       </main>
       <Footer />
