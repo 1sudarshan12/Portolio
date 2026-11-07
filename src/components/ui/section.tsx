@@ -39,10 +39,10 @@ export function SectionHeader({
             <span className="font-mono text-sm text-accent">{index}</span>
           )}
           {eyebrow && <span className="label-mono">{eyebrow}</span>}
-          <span className="h-px flex-1 bg-border" aria-hidden />
+          <span data-rule="" className="h-px flex-1 bg-border" aria-hidden />
         </div>
       )}
-      <h2 className="text-balance text-[color:var(--foreground)]" style={{ fontSize: "var(--text-h2)" }}>
+      <h2 data-split="" className="text-balance text-[color:var(--foreground)]" style={{ fontSize: "var(--text-h2)" }}>
         {title}
       </h2>
       {description && (

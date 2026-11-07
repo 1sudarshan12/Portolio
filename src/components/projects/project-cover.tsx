@@ -1,4 +1,6 @@
 import Image from "next/image";
+import * as React from "react";
+import { ViewTransition } from "react";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/content/projects";
 
@@ -10,15 +12,20 @@ export function ProjectCover({
   project,
   className,
   priority,
+  transitionName,
 }: {
   project: Project;
   className?: string;
   priority?: boolean;
+  /** Shared-element name so the cover morphs between card and detail page. */
+  transitionName?: string;
 }) {
   const shot = project.screenshots?.[0];
+  const wrap = (node: React.ReactElement) =>
+    transitionName ? <ViewTransition name={transitionName}>{node}</ViewTransition> : node;
 
   if (shot) {
-    return (
+    return wrap(
       <div className={cn("relative overflow-hidden", className)}>
         <Image
           src={shot.src}
@@ -27,12 +34,13 @@ export function ProjectCover({
           priority={priority}
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover"
+          data-parallax=""
         />
-      </div>
+      </div>,
     );
   }
 
-  return (
+  return wrap(
     <div
       className={cn("relative overflow-hidden", className)}
       style={{
@@ -47,6 +55,6 @@ export function ProjectCover({
         </span>
       </div>
       <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
-    </div>
+    </div>,
   );
 }

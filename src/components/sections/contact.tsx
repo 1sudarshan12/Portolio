@@ -106,13 +106,10 @@ export function Contact() {
             <span className="font-mono text-sm text-accent">08</span>
             <span className="label-mono">Contact</span>
           </div>
-          <Reveal>
-            <h2 className="text-balance" style={{ fontSize: "var(--text-h2)" }}>
-              Let&apos;s build
-              <br />
-              <span className="accent-gradient">something great.</span>
-            </h2>
-          </Reveal>
+          <h2 data-split="chars" className="text-balance leading-[1.02]" style={{ fontSize: "var(--text-h1)" }}>
+            Let&apos;s build{" "}
+            <span className="accent-gradient">something great.</span>
+          </h2>
           <Reveal delay={0.08}>
             <p className="mt-6 max-w-md text-pretty text-muted-foreground" style={{ fontSize: "var(--text-lead)" }}>
               Have a project, a role, or just an idea? Tell me what you&apos;re

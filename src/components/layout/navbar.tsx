@@ -31,7 +31,7 @@ export function Navbar() {
   }, [open]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)]">
+    <header data-nav="" className="fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)]">
       <div className="container-px pt-3 sm:pt-4">
         <nav
           className={cn(

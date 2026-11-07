@@ -12,7 +12,7 @@ export function TechMarquee() {
         className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent"
         aria-hidden
       />
-      <div className="flex w-max animate-marquee items-center gap-6 pl-6 sm:gap-10 sm:pl-10">
+      <div data-marquee="" className="flex w-max animate-marquee items-center gap-6 pl-6 sm:gap-10 sm:pl-10">
         {items.map((item, i) => (
           <span
             key={`${item}-${i}`}

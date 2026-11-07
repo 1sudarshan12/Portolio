@@ -396,3 +396,28 @@
 .hljs-selector-class { color: #7ee787; }
 .hljs-emphasis { font-style: italic; }
 .hljs-strong { font-weight: 700; }
+
+/* ------------------------------------------------------------------ */
+/*  GSAP: pre-hide (armed by inline script only when motion is OK)     */
+/* ------------------------------------------------------------------ */
+html.js-reveal [data-reveal],
+html.js-reveal [data-reveal-item] {
+  opacity: 0;
+  visibility: hidden;
+}
+html.js-reveal [data-split] {
+  visibility: hidden;
+}
+/* Mask wrappers from SplitText: keep descenders from being clipped */
+.split-line-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+[data-parallax] {
+  scale: 1.16;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-parallax] {
+    scale: 1;
+  }
+}

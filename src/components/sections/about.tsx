@@ -12,16 +12,15 @@ export function About() {
             <span className="font-mono text-sm text-accent">01</span>
             <span className="label-mono">About</span>
           </div>
-          <Reveal>
-            <h2
-              className="text-balance"
-              style={{ fontSize: "var(--text-h2)" }}
-            >
-              Engineering that
-              <br />
-              <span className="accent-gradient">outlasts the launch.</span>
-            </h2>
-          </Reveal>
+          <h2
+            data-split=""
+            className="text-balance"
+            style={{ fontSize: "var(--text-h2)" }}
+          >
+            Engineering that
+            <br />
+            <span className="accent-gradient">outlasts the launch.</span>
+          </h2>
           <Reveal delay={0.1}>
             <ul className="mt-10 grid gap-3 sm:grid-cols-2">
               {focusAreas.map((area) => (
@@ -43,6 +42,7 @@ export function About() {
           {aboutParagraphs.map((text, i) => (
             <Reveal key={i} delay={i * 0.08}>
               <p
+                data-scrub-words={i === 0 ? "" : undefined}
                 className={
                   i === 0
                     ? "text-pretty text-foreground"

@@ -1,6 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
 import { ArrowDownRight, ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SmoothLink } from "@/components/smooth-link";
@@ -8,42 +5,25 @@ import { Magnetic } from "@/components/motion/magnetic";
 import { siteConfig } from "@/lib/content/site";
 import { stats } from "@/lib/content/about";
 
-const line = {
-  hidden: { y: "110%" },
-  visible: (i: number) => ({
-    y: "0%",
-    transition: { duration: 0.9, delay: 0.1 + i * 0.12, ease: [0.22, 1, 0.36, 1] as const },
-  }),
-};
-
-const fade = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (d: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay: d, ease: [0.22, 1, 0.36, 1] as const },
-  }),
-};
-
 export function Hero() {
-  const reduce = useReducedMotion();
-
   return (
-    <section className="relative overflow-hidden pt-36 sm:pt-44 lg:pt-52">
+    <section data-hero="" className="relative overflow-hidden pt-36 sm:pt-44 lg:pt-52">
       {/* Background layers */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-grid opacity-60" />
+        <div
+          data-pointer-glow=""
+          className="absolute left-0 top-0 hidden size-[34rem] rounded-full bg-[radial-gradient(circle,var(--accent-glow),transparent_65%)] opacity-0 lg:block"
+          style={{ visibility: "hidden" }}
+        />
         <div className="absolute left-1/2 top-0 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-glow),transparent_62%)] blur-2xl sm:h-[42rem] sm:w-[42rem]" />
       </div>
 
-      <div className="container-px">
+      <div data-hero-content="" className="container-px">
         <div className="mx-auto max-w-7xl">
           {/* Availability */}
-          <motion.div
-            variants={fade}
-            custom={0}
-            initial="hidden"
-            animate="visible"
+          <div
+            data-reveal=""
             className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2"
           >
             <span className="inline-flex max-w-full items-center gap-2.5 rounded-full border border-border bg-card/60 px-4 py-1.5 text-sm text-pretty text-muted-foreground backdrop-blur">
@@ -54,7 +34,7 @@ export function Hero() {
               {siteConfig.availability}
             </span>
             <span className="label-mono hidden sm:inline">{siteConfig.location}</span>
-          </motion.div>
+          </div>
 
           {/* Headline */}
           <h1
@@ -64,53 +44,16 @@ export function Hero() {
             <span className="sr-only">
               {siteConfig.name} — {siteConfig.role}
             </span>
-            <span className="contents sm:hidden">
-              {(["Full-Stack", "Software", "Engineer"] as const).map((text, i) => (
-                <span key={text} className="block overflow-hidden pb-[0.12em]">
-                  <motion.span
-                    className="block leading-[0.95]"
-                    variants={line}
-                    custom={i}
-                    initial="hidden"
-                    animate="visible"
-                  >
-                    {i >= 1 ? (
-                      <span className="accent-gradient">{text}</span>
-                    ) : (
-                      text
-                    )}
-                  </motion.span>
-                </span>
-              ))}
-            </span>
-            <span className="hidden sm:contents">
-              {(["Full-Stack", "Software Engineer"] as const).map((text, i) => (
-                <span key={text} className="block overflow-hidden pb-[0.12em]">
-                  <motion.span
-                    className="block leading-[0.95]"
-                    variants={line}
-                    custom={i}
-                    initial="hidden"
-                    animate="visible"
-                  >
-                    {i === 1 ? (
-                      <span className="accent-gradient">{text}</span>
-                    ) : (
-                      text
-                    )}
-                  </motion.span>
-                </span>
-              ))}
+            <span aria-hidden data-split="chars" className="block text-balance leading-[0.98]">
+              Full-Stack <span className="accent-gradient">Software Engineer</span>
             </span>
           </h1>
 
           {/* Intro + CTAs */}
           <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <motion.p
-              variants={fade}
-              custom={0.5}
-              initial="hidden"
-              animate="visible"
+            <p
+              data-reveal=""
+              data-delay="0.5"
               className="max-w-xl text-pretty text-muted-foreground"
               style={{ fontSize: "var(--text-lead)" }}
             >
@@ -118,16 +61,14 @@ export function Hero() {
               build SaaS products and API-driven web applications with React,
               Next.js, TypeScript, Node.js, Python and Go — fast, secure and built
               to last.
-            </motion.p>
+            </p>
 
-            <motion.div
-              variants={fade}
-              custom={0.65}
-              initial="hidden"
-              animate="visible"
+            <div
+              data-reveal=""
+              data-delay="0.65"
               className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center"
             >
-              <Magnetic strength={reduce ? 0 : 0.25}>
+              <Magnetic strength={0.25}>
                 <Button asChild size="lg" className="w-full sm:w-auto">
                   <SmoothLink href="#work">
                     View my projects <ArrowDownRight />
@@ -144,21 +85,19 @@ export function Hero() {
                   <Download /> Resume
                 </a>
               </Button>
-            </motion.div>
+            </div>
           </div>
 
           {/* Stats */}
-          <motion.dl
-            variants={fade}
-            custom={0.85}
-            initial="hidden"
-            animate="visible"
+          <dl
+            data-reveal=""
+            data-delay="0.85"
             className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-4"
           >
             {stats.map((stat) => (
               <div key={stat.label} className="bg-background p-5 sm:p-6">
                 <dt className="sr-only">{stat.label}</dt>
-                <dd className="font-display text-3xl text-foreground sm:text-4xl">
+                <dd data-count="" className="font-display tabular-nums text-3xl text-foreground sm:text-4xl">
                   {stat.value}
                 </dd>
                 <p className="mt-2 text-xs leading-snug text-muted-foreground sm:text-sm">
@@ -166,7 +105,7 @@ export function Hero() {
                 </p>
               </div>
             ))}
-          </motion.dl>
+          </dl>
         </div>
       </div>
     </section>

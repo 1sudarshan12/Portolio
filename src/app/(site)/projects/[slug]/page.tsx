@@ -142,6 +142,7 @@ export default async function ProjectPage({
           <ProjectCover
             project={project}
             priority
+            transitionName={`project-${project.slug}`}
             className="mx-auto aspect-[16/9] w-full max-w-6xl rounded-3xl border border-border"
           />
         </Reveal>

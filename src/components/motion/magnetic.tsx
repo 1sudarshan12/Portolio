@@ -1,11 +1,15 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
 import * as React from "react";
+import { gsap, registerGsap, useGSAP } from "@/lib/gsap/register";
+import { MEDIA } from "@/lib/gsap/motion";
 
+registerGsap();
+
+/** Magnetic hover. Pointer-fine, large-screen, motion-allowed devices only. */
 export function Magnetic({
   children,
-  strength = 0.35,
+  strength = 0.3,
   className,
 }: {
   children: React.ReactNode;
@@ -13,33 +17,39 @@ export function Magnetic({
   className?: string;
 }) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 200, damping: 15 });
-  const sy = useSpring(y, { stiffness: 200, damping: 15 });
 
-  function handleMove(e: React.MouseEvent<HTMLDivElement>) {
-    if (reduce || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    x.set((e.clientX - (rect.left + rect.width / 2)) * strength);
-    y.set((e.clientY - (rect.top + rect.height / 2)) * strength);
-  }
-
-  function reset() {
-    x.set(0);
-    y.set(0);
-  }
+  useGSAP(
+    () => {
+      const el = ref.current;
+      if (!el) return;
+      const mm = gsap.matchMedia();
+      mm.add(`${MEDIA.motion} and ${MEDIA.desktop}`, () => {
+        const xTo = gsap.quickTo(el, "x", { duration: 0.6, ease: "elastic.out(1, 0.5)" });
+        const yTo = gsap.quickTo(el, "y", { duration: 0.6, ease: "elastic.out(1, 0.5)" });
+        const move = (e: PointerEvent) => {
+          const r = el.getBoundingClientRect();
+          xTo((e.clientX - (r.left + r.width / 2)) * strength);
+          yTo((e.clientY - (r.top + r.height / 2)) * strength);
+        };
+        const reset = () => {
+          xTo(0);
+          yTo(0);
+        };
+        el.addEventListener("pointermove", move);
+        el.addEventListener("pointerleave", reset);
+        return () => {
+          el.removeEventListener("pointermove", move);
+          el.removeEventListener("pointerleave", reset);
+        };
+      });
+      return () => mm.revert();
+    },
+    { scope: ref },
+  );
 
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMove}
-      onMouseLeave={reset}
-      style={{ x: sx, y: sy }}
-      className={className}
-    >
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }

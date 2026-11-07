@@ -16,15 +16,22 @@ export function ProjectCard({
 }) {
   return (
     <Link
+      data-tilt=""
+      data-cursor="View"
       href={`/projects/${project.slug}`}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-500 hover:border-border-strong hover:shadow-[0_30px_80px_-40px_var(--accent-glow)]",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card transition-[border-color,box-shadow] duration-500 hover:border-border-strong hover:shadow-[0_30px_80px_-40px_var(--accent-glow)]",
         featured && "lg:col-span-2 lg:flex-row",
       )}
     >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500 [background:radial-gradient(420px_circle_at_var(--mx,50%)_var(--my,50%),var(--accent-glow),transparent_60%)] group-hover:opacity-100"
+      />
       <ProjectCover
         project={project}
         priority={priority}
+        transitionName={`project-${project.slug}`}
         className={cn(
           "aspect-[16/10] w-full transition-transform duration-700 group-hover:scale-[1.02]",
           featured && "lg:aspect-auto lg:w-1/2",
